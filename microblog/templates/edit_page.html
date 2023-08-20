@@ -1,0 +1,120 @@
+<!Doctype html>
+<html lang='en'>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" conten="width=device-width, initial-scale=1.0">
+    <title>Microblog</title>
+    <link rel="stylesheet" href="static/css/edstl.css?after" />
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="navbar__brand">
+            <img src="static/logo.svg" alt="The logo" class="navbar__logo" />Microblog
+        </div>
+        <ul class="navbar__navigation">
+            <li class="navber__navigation-item"><a href="#" class="navber__link">Recent</a></li>
+            <li class="navber__navigation-item"><a href="#" class="navber__link">Calendar</a></li>
+        </ul>
+    </header>
+    <main class="main">
+        <section class="overlay">
+            <div class="overlay__content">
+
+                <div class="overlay__window">
+                    <button class="overlay__close-button" aria-label="Close alert" type="button" onclick="location.href='/'">
+            <span aria-hidden="true">&times;</span>
+              </button>
+
+                    <h1>
+                        Edit your entry
+                    </h1>
+                    <form class=overlay__form method="POST">
+                        <p class="overlay__form--input">
+                            <textarea name="edit_content" id="editting" class="overlay__form__textarea"></textarea>
+                        </p>
+                        <button class="overlay__form__submit" type="submit">
+					Edit entry
+				</button>
+
+                    </form>
+                </div>
+
+            </div>
+
+
+        </section>
+        <section class="section">
+            <h1>
+                Add new entry {{name}}
+            </h1>
+            <form class="form" method="POST">
+                <p class="form__input">
+                    <label for="entry" class="form__label">Entry contents</label>
+                    <textarea name="content" id="entry" class="form__textarea"></textarea>
+                </p>
+                <button class="form__submit" type="submit">
+					Add entry
+				</button>
+            </form>
+        </section>
+        <section class="section">
+            <h1>
+                Recent posts
+            </h1>
+            {% for entry in entries|reverse %}
+            <article class="entry">
+                <div>
+                    <h2 class="entry__title">
+                        {{entry[0] | truncate(30, true)}}
+                    </h2>
+                    <time datetime="{{entry[1]}}" class="entry__date">•{{entry[2]}}</time>
+                </div>
+                <p class="entry__content">
+                    {{ entry[0]}}
+                </p>
+                <div class="entry__deletemo">
+                    <form class=f ormedit method="POST">
+                        <p hidden>
+                            <textarea name="deleting" id="de" class="entry_deleting">{{entry[3]}}</textarea>
+                        </p>
+                        <button class=entry__delete type="submit">delete</button>
+                    </form>
+
+                    <form class=f ormedit action="/edit" method="POST">
+                        <input method="POST" type="hidden" name="editinfo" value="{{entry[3]}}" />
+                        <button class=entry__delete type="submit">edit</button>
+                    </form>
+
+
+                </div>
+
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+    <div class="airbag">
+
+    </div>
+    <footer class="footer">
+        <div class="footer__content">
+            <section class="left">
+                <a class="footer__item">Made by Jin Seok Youn</a>
+                <a class="footer__item">Check out my other projects</a>
+            </section>
+            <section class="right">
+                <div class="footer__column">
+                    <a class="footer__item">Recent</a>
+                    <a class="footer__item">Calendar</a>
+                </div>
+                <div class="footer__column">
+                    <a class="footer__item">About</a>
+                    <a class="footer__item">How this was made</a>
+                </div>
+            </section>
+        </div>
+    </footer>
+</body>
+
+</html>
